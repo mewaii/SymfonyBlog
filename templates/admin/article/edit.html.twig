@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Modifier: {{ article.title }}
+{% endblock %}
+
+{% block body %}
+    <h1>Modifier l'article "{{ article.title }}"</h1>
+    {#  Gérer la publication de l'article #}
+    {% if article.publishedAt is not null %}
+        <p>
+            Publié le {{ article.publishedAt|date('d/m/Y')}}
+            à {{ article.publishedAt|date('H:i') }}
+        </p>
+    {% else %}
+         <a href="{{ path('admin_article_publish', {
+                id: article.id,
+                token: csrf_token('article-publish')
+         }) }}"
+        class="btn btn-info">
+             Publier
+         </a>
+    {% endif %}
+    {#  Réutiliser le meme formulaire que dans add.html.twig  #}
+    {% include 'admin/article/_article_form.html.twig' %}
+{% endblock %}
+
