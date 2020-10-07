@@ -1,8 +1,9 @@
 security:
+    # Gestion des algorithmes de hashage des mots de passe
     encoders:
         App\Entity\User:
             algorithm: auto
-
+    # Outils de récupération des utilisateurs depuis la session
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -10,6 +11,8 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+
+    # Règles de sécurité générales de l'application
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -17,6 +20,13 @@ security:
         main:
             anonymous: lazy
             provider: app_user_provider
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: app_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
