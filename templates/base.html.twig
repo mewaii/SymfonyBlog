@@ -44,7 +44,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAdmin">
                     <div class="navbar-nav">
                         {% if is_granted('ROLE_USER') %}
-                            <a href="#" class="nav-link">
+                            <a href="{{ path('user_profile') }}" class="nav-link">
                                 {{ app.user.username }}
                             </a>
                             <a class="nav-link" href="{{ path('app_logout') }}">
